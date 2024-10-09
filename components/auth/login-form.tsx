@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
-import { loginAction } from '@/app/actions/auth';
+import { loginAction } from '@/actions/auth';
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),

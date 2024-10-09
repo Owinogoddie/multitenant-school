@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
-import { registerAction } from '@/app/actions/auth';
+import { registerAction } from '@/actions/auth';
 
 const schema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),

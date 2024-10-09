@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers'
 import { lucia } from '@/lib/auth'
-import { prisma } from '@/lib/prisma'
+import  prisma  from '@/lib/prisma'
 import { Argon2id } from 'oslo/password'
 
 export async function loginAction(email: string, password: string, domain?: string) {
