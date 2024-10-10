@@ -1,24 +1,33 @@
-import { PrismaClient, Subscription } from '@prisma/client';
-import { getPlanById, calculateSubscriptionEndDate, getSubscriptionStatus } from '@/lib/subscriptionUtils';
+// actions/subscriptionActions.ts
+
+'use server'
+
+import { PrismaClient, Subscription, Plan } from '@prisma/client';
+import { calculateSubscriptionEndDate, getSubscriptionStatus } from '@/lib/subscriptionUtils';
 import prisma from '@/lib/prisma';
 
+export type SubscriptionWithPlan=Subscription &{plan:Plan}
 
-export async function getActiveSubscription(schoolId: string) {
-  const subscription = await prisma.subscription.findFirst({
-    where: {
-      schoolId,
-      status: 'ACTIVE',
+export async function getActiveSubscription(schoolId: string): Promise<SubscriptionWithPlan | null> {
+    const subscription = await prisma.subscription.findFirst({
+      where: {
+        schoolId,
+        status: 'ACTIVE',
+      },
+      include: {
+        plan: true,  // Fetch the related plan
+      },
+    });
+  
+    return subscription;
+  }
+  
+export async function getPlans() {
+  return prisma.plan.findMany({
+    orderBy: {
+      price: 'asc',
     },
   });
-
-  if (subscription) {
-    const plan = getPlanById(subscription.planId);
-    if (plan) {
-      return { ...subscription, plan };
-    }
-  }
-
-  return null;
 }
 
 export async function updateSubscription(subscriptionId: string, data: Partial<Subscription>) {
@@ -29,8 +38,10 @@ export async function updateSubscription(subscriptionId: string, data: Partial<S
 }
 
 export async function upgradePlan(schoolId: string, newPlanId: string) {
-  const plan = getPlanById(newPlanId);
-  
+  const plan = await prisma.plan.findUnique({
+    where: { id: newPlanId },
+  });
+
   if (!plan) {
     throw new Error('Invalid plan ID');
   }

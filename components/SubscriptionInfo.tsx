@@ -1,4 +1,3 @@
-// components/SubscriptionInfo.tsx
 'use client';
 
 import { Subscription, Plan } from '@prisma/client';
@@ -6,15 +5,17 @@ import Link from 'next/link';
 
 interface SubscriptionInfoProps {
   subscription: (Subscription & { plan: Plan }) | null;
+  schoolId: string;
 }
 
-export default function SubscriptionInfo({ subscription }: SubscriptionInfoProps) {
+export default function SubscriptionInfo({ subscription, schoolId }: SubscriptionInfoProps) {
   if (!subscription) {
     return (
       <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
         <p className="font-bold">No active subscription</p>
         <p>Please upgrade to continue using EduManage.</p>
-        <Link href="/upgrade" className="text-blue-500 hover:underline">
+        {/* Append schoolId as a query parameter */}
+        <Link href={`/upgrade?schoolId=${schoolId}`} className="text-blue-500 hover:underline">
           Upgrade Now
         </Link>
       </div>
@@ -29,7 +30,8 @@ export default function SubscriptionInfo({ subscription }: SubscriptionInfoProps
       <p>Valid until: {subscription.endDate.toLocaleDateString()}</p>
       <p>{daysLeft} days left</p>
       {subscription.plan.name === 'Free Trial' && (
-        <Link href="/upgrade" className="text-blue-500 hover:underline">
+        // Append schoolId as a query parameter
+        <Link href={`/upgrade?schoolId=${schoolId}`} className="text-blue-500 hover:underline">
           Upgrade to Full Plan
         </Link>
       )}
