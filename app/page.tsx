@@ -18,8 +18,8 @@ export default function LandingPage() {
             <Link href="/features" className="text-gray-600 hover:text-blue-600">Features</Link>
             <Link href="/pricing" className="text-gray-600 hover:text-blue-600">Pricing</Link>
             <Link href="/about" className="text-gray-600 hover:text-blue-600">About</Link>
-            <Link href="/login" className="text-blue-600 hover:text-blue-800">Login</Link>
-            <Link href="/register" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</Link>
+            <Link href="/signin" className="text-blue-600 hover:text-blue-800">Login</Link>
+            <Link href="/signup" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</Link>
           </nav>
           <button 
             className="md:hidden text-gray-600 focus:outline-none"
@@ -35,8 +35,8 @@ export default function LandingPage() {
             <Link href="/features" className="block py-2 text-gray-600 hover:text-blue-600">Features</Link>
             <Link href="/pricing" className="block py-2 text-gray-600 hover:text-blue-600">Pricing</Link>
             <Link href="/about" className="block py-2 text-gray-600 hover:text-blue-600">About</Link>
-            <Link href="/login" className="block py-2 text-blue-600 hover:text-blue-800">Login</Link>
-            <Link href="/register" className="block py-2 bg-blue-600 text-white px-4 rounded hover:bg-blue-700">Register</Link>
+            <Link href="/signin" className="block py-2 text-blue-600 hover:text-blue-800">Login</Link>
+            <Link href="/signup" className="block py-2 bg-blue-600 text-white px-4 rounded hover:bg-blue-700">Register</Link>
           </div>
         )}
       </header>
@@ -50,7 +50,7 @@ export default function LandingPage() {
             Streamline administration, enhance communication, and boost productivity with EduManage - the all-in-one solution for modern educational institutions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link href="/register" className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg hover:bg-blue-700 transition duration-300">
+            <Link href="/signup" className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg hover:bg-blue-700 transition duration-300">
               Start Free Trial
             </Link>
             <Link href="/demo" className="bg-white text-blue-600 border border-blue-600 px-8 py-4 rounded-lg text-lg hover:bg-blue-50 transition duration-300">

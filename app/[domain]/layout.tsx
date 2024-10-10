@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { notFound, redirect } from 'next/navigation'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { getUser } from '@/lib/auth'
 
 export default async function SchoolLayout({
@@ -11,7 +11,7 @@ export default async function SchoolLayout({
   params: { domain: string }
 }) {
   const school = await prisma.school.findUnique({
-    where: { domain: params.domain },
+    where: { subdomain: params.domain },
     include: { subscription: true }
   })
 
@@ -22,16 +22,16 @@ export default async function SchoolLayout({
   const user = await getUser()
 
   if (!user) {
-    redirect(`/${params.domain}/login`)
+    redirect(`/login?subdomain=${params.domain}`)
   }
 
   // Check if the subscription is active
-  const isSubscriptionActive = school.subscription && 
+  const isSubscriptionActive = school.subscription &&
     school.subscription.status === 'ACTIVE' &&
     new Date(school.subscription.endDate) > new Date()
 
   if (!isSubscriptionActive && params.domain !== 'subscription') {
-    redirect(`/${params.domain}/subscription`)
+    redirect(`/subscription?subdomain=${params.domain}`)
   }
 
   return (

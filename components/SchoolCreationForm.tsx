@@ -16,17 +16,18 @@ export default function SchoolCreationForm({ userId }: SchoolCreationFormProps) 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
+  
     try {
       const result = await createSchool(schoolName, userId);
       if (result.success) {
-        router.push(`/customize/${result.school?.id}`);
+        router.push(`/onboarding/${result.school.id}`);
       } else {
-        setError(result.error || 'An error occurred');
+        setError(result.error);
       }
     } catch (err) {
       setError('An unexpected error occurred');
     }
+    
   };
 
   return (
